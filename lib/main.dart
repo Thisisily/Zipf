@@ -1,20 +1,26 @@
-// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, prefer_final_fields, unused_field
 
 import 'package:flutter/material.dart';
+import 'package:zipf/flashCards/flashcard_view.dart';
+import 'package:zipf/flashCards/flashcard.dart';
 import 'package:flip_card/flip_card.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
-
   @override
   State<StatefulWidget> createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
+  List<Flashcard> _flascards = [
+    Flashcard(question: "blah blah blah?", answer: "blah blah!"),
+    Flashcard(question: "bleh bleh bleh?", answer: "bleh bleh..."),
+  ];
+  int _currentIndex = 0;
   @override
   Widget build(BuildContext contxt) {
     return MaterialApp(
@@ -27,24 +33,9 @@ class _MyAppState extends State<MyApp> {
                 width: 230,
                 height: 300,
                 child: FlipCard(
-                  front: Card(
-                    elevation: 6,
-                    color: Color.fromARGB(255, 142, 159, 150),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(30))),
-                    child: Center(
-                      child: Text("Flashcard"),
-                    ),
-                  ),
-                  back: Card(
-                    elevation: 6,
-                    color: Color.fromARGB(255, 142, 159, 150),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(30))),
-                    child: Center(
-                      child: Text("Backside"),
-                    ),
-                  ),
+                  front:
+                      FlashcardView(text: _flascards[_currentIndex].question),
+                  back: FlashcardView(text: _flascards[_currentIndex].answer),
                 ),
               ),
               Row(
