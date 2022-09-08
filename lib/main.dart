@@ -24,6 +24,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext contxt) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         body: Center(
           child: Column(
@@ -42,11 +43,11 @@ class _MyAppState extends State<MyApp> {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   OutlinedButton.icon(
-                      onPressed: () {},
+                      onPressed: showPreviousCard,
                       icon: Icon(Icons.chevron_left),
                       label: Text('Prev')),
                   OutlinedButton.icon(
-                      onPressed: () {},
+                      onPressed: showNextCard,
                       icon: Icon(Icons.chevron_right),
                       label: Text('Next')),
                 ],
@@ -56,5 +57,17 @@ class _MyAppState extends State<MyApp> {
         ),
       ),
     );
+  }
+
+  void showNextCard() {
+    setState(() {
+      _currentIndex =
+          (_currentIndex + 1 < _flascards.length) ? _currentIndex + 1 : 0;
+    });
+  }
+
+  void showPreviousCard() {
+    _currentIndex =
+        (_currentIndex > 0) ? _currentIndex - 1 : _flascards.length - 1;
   }
 }
